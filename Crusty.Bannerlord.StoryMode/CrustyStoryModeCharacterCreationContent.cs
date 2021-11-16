@@ -5,11 +5,12 @@ using TaleWorlds.CampaignSystem.CharacterCreationContent;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
+using StoryMode.CharacterCreationContent;
 
 
 namespace Crusty.Bannerlord.StoryMode
 {
-    public class CrustyStoryModeCharacterCreationContent : SandboxCharacterCreationContent
+    public class CrustyStoryModeCharacterCreationContent : StoryModeCharacterCreationContent
 
     {
         protected override void OnInitialized(CharacterCreation characterCreation)
@@ -19,9 +20,9 @@ namespace Crusty.Bannerlord.StoryMode
             base.AddEducationMenu(characterCreation);
             base.AddYouthMenu(characterCreation);
             base.AddAdulthoodMenu(characterCreation);
+            base.AddEscapeMenu(characterCreation);
             AddHeirloomMenu(characterCreation);
             AddHeirloomMenu2(characterCreation);
-            base.AddAgeSelectionMenu(characterCreation);
 
         }
 

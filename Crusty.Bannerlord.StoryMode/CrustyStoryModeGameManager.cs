@@ -7,10 +7,11 @@ using TaleWorlds.Core;
 using TaleWorlds.Engine;
 using TaleWorlds.ModuleManager;
 using TaleWorlds.MountAndBlade;
+using StoryMode;
 
 namespace Crusty.Bannerlord.StoryMode
 {
-    public class CrustyStoryModeGameManager : SandBoxGameManager
+    public class CrustyStoryModeGameManager : StoryModeGameManager
     {
         private int _seed = 1234;
 
