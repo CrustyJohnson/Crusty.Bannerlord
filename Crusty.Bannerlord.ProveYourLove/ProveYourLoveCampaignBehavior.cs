@@ -26,6 +26,21 @@ namespace Crusty.Bannerlord.ProveYourLove
         public override void RegisterEvents()
         {
             CampaignEvents.SetupPreConversationEvent.AddNonSerializedListener(this, SetupPreConversation);
+            CampaignEvents.OnConversationEndedEvent.AddNonSerializedListener(this, OnConversationEnded);
+        }
+        private void OnConversationEnded()
+        {
+            Hero hero = new Hero();
+            if(Hero.OneToOneConversation != null) {hero = Hero.OneToOneConversationHero;}
+            else if(MobileParty.ConversationParty.LeaderHero != null) {hero = MobileParty.ConversationParty.LeaderHero;}
+            else {return;}
+            
+            if (Romance.GetRomanticLevel(Hero.MainHero, hero) == Romance.RomanceLevelEnum.FailedInCompatibility 
+                | Romance.GetRomanticLevel(Hero.MainHero, hero) == Romance.RomanceLevelEnum.FailedInCompatibility)
+            {
+                new ProveYourLoveCampaignBehavior.ProveYourLoveIssue(hero)
+            }
+            
         }
         private void SetupPreConversation()
         {
@@ -41,7 +56,7 @@ namespace Crusty.Bannerlord.ProveYourLove
             try
             {
                 if (Romance.GetRomanticLevel(Hero.MainHero, MobileParty.ConversationParty.LeaderHero) == Romance.RomanceLevelEnum.FailedInCompatibility
-                || Romance.GetRomanticLevel(Hero.MainHero, MobileParty.ConversationParty.LeaderHero) == Romance.RomanceLevelEnum.FailedInPracticalities)
+                | Romance.GetRomanticLevel(Hero.MainHero, MobileParty.ConversationParty.LeaderHero) == Romance.RomanceLevelEnum.FailedInPracticalities)
 
                 {
                     Hero quest_giver = MobileParty.ConversationParty.LeaderHero;
