@@ -7,6 +7,21 @@ namespace Crusty.Bannerlord.ProveYourLove
 {
     class ProveYourLoveCampaignBehavior : CampaignBehaviorBase
     {
+        int conscienceCounter = 0;
+        bool IsBad
+        {
+            get
+            {  
+                return true;
+            }
+        }
+        bool IsGood
+        {
+            get
+            {  
+                return true;
+            }
+        }
 
         public override void RegisterEvents()
         {
@@ -14,6 +29,15 @@ namespace Crusty.Bannerlord.ProveYourLove
         }
         private void SetupPreConversation()
         {
+        
+        Hero quest_giver = MobileParty.ConversationParty.LeaderHero;
+        new honor = quest_giver.GetHeroTraits().Honor;
+        new mercy = quest_giver.GetHeroTraits().Mercy;
+        new valor = quest_giver.GetHeroTraits().Valor;
+        new genorosity = quest_giver.GetHeroTraits().Genorosity;
+        conscienceCounter = 0 + honor + mercy + valor + genorosity;
+        conscienceCounter < 0 ? IsBad : IsGood; 
+        
             try
             {
                 if (Romance.GetRomanticLevel(Hero.MainHero, MobileParty.ConversationParty.LeaderHero) == Romance.RomanceLevelEnum.FailedInCompatibility
