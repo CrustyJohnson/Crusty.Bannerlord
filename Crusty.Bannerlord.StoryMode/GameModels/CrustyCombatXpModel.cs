@@ -5,7 +5,7 @@ using TaleWorlds.CampaignSystem.SandBox.GameComponents.Map;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Crusty.Bannerlord.StoryMode.GameModels
+namespace Crusty.Bannerlord.CrustyStoryMode.GameModels
 {
     class CrustyCombatXpModel : DefaultCombatXpModel
     {

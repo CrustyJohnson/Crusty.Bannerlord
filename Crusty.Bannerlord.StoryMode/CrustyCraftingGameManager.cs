@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Crusty.Bannerlord.StoryMode
+namespace Crusty.Bannerlord.CrustyStoryMode
 {
     public class CrustyCraftingGameManager : SandBoxGameManager
     {

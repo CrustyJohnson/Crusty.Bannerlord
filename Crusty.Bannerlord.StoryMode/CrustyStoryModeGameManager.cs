@@ -1,4 +1,4 @@
-﻿using Crusty.Bannerlord.StoryMode;
+﻿using Crusty.Bannerlord.CrustyStoryMode;
 using SandBox;
 using System;
 using TaleWorlds.CampaignSystem;
@@ -9,7 +9,7 @@ using TaleWorlds.ModuleManager;
 using TaleWorlds.MountAndBlade;
 using StoryMode;
 
-namespace Crusty.Bannerlord.StoryMode
+namespace Crusty.Bannerlord.CrustyStoryMode
 {
     public class CrustyStoryModeGameManager : StoryModeGameManager
     {
