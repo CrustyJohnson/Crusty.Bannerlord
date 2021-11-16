@@ -7,7 +7,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Engine;
 using TaleWorlds.ObjectSystem;
 
-namespace Crusty.Bannerlord.StoryMode.Behaviors
+namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
 {
     public class CrustyHeroPrisonerBehavior : CampaignBehaviorBase
     {

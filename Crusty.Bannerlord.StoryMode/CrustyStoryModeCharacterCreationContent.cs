@@ -8,7 +8,7 @@ using TaleWorlds.ObjectSystem;
 using StoryMode.CharacterCreationContent;
 
 
-namespace Crusty.Bannerlord.StoryMode
+namespace Crusty.Bannerlord.CrustyStoryMode
 {
     public class CrustyStoryModeCharacterCreationContent : StoryModeCharacterCreationContent
 

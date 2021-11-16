@@ -2,7 +2,7 @@
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Crusty.Bannerlord.StoryMode
+namespace Crusty.Bannerlord.CrustyStoryMode
 {
        public static class CrustyCheats
         {
