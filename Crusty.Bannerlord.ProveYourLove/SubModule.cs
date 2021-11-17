@@ -11,6 +11,7 @@ namespace Crusty.Bannerlord.ProveYourLove
 
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
         {
+			CampaignGameStarter campaignGameStarter = (CampaignGameStarter)gameStarter;
 			try
 			{
 			campaignGameStarter.AddBehavior(new ProveYourLoveCampaignBehavior());
