@@ -34,14 +34,10 @@ namespace Crusty.Bannerlord.StoryMode
 
         private void AddBehaviors(CampaignGameStarter campaignGameStarter)
         {
-            campaignGameStarter.AddBehavior(new CrustyHeroPrisonerBehavior());
-            CrustyHelpers.OutMsg("CrustyHeroPrisonerBehavior Added!");
 
             campaignGameStarter.AddBehavior(new TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors.BattleChallengeCampaignBehavior());
             CrustyHelpers.OutMsg("BattleChallengeCampaignBehavior Added!");
 
-            campaignGameStarter.AddBehavior(new ProveYourLoveCampaignBehavior());
-            CrustyHelpers.OutMsg("ProveYourLoveCampaignBehavior Added!");
         }
 
 
