@@ -70,10 +70,14 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
                 "If you wish to be free, perhaps you can help me out and join my party, if only for a while...",
                 playerDecidesRecruitMercenaryPrisonerCondition, null);
             starter.AddPlayerLine("player_decides_fight",
-                "player_decides", "prisoner_fight",
-                "WeThe only mercy you'll get is your equipment and a small lead. Run.",
+                "player_decides", "prisoner_converted",
+                "The only mercy you'll get is your equipment and a small lead. Run.",
                 null, null);
-
+            starter.AddPlayerLine("player_decides_convert",
+                "player_decides", "persuasion_leave_faction_npc",
+                "WHy do you serve a liege that allows his subjects to rot away in prison?.",
+                null, null);
+            
 
 
             //Decisions ending the dialogue
