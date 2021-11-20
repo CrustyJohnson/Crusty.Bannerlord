@@ -71,7 +71,7 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
                 playerDecidesRecruitMercenaryPrisonerCondition, null);
             starter.AddPlayerLine("player_decides_fight",
                 "player_decides", "prisoner_fight",
-                "WeThe only mercy you'll get is your equipment and a small lead. Run.",
+                "The only mercy you'll get is your equipment and a small lead. Run.",
                 null, null);
 
 
