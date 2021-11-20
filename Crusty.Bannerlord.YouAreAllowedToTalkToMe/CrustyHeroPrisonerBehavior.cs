@@ -185,37 +185,98 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
 
             }
 
-            protected void TakePrisonerEquipmentAndRelease()
-            {
-                Hero hero1 = Hero.MainHero;
-                Hero hero2 = Hero.OneToOneConversationHero;
-                try
-                {
-                    hero1.PartyBelongedTo.ItemRoster.AddToCounts(
-                        hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Cape), 1);
-                    hero1.PartyBelongedTo.ItemRoster.AddToCounts(
-                        hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Gloves), 1);
-                    hero1.PartyBelongedTo.ItemRoster.AddToCounts(
-                        hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Head), 1);
-                    hero1.PartyBelongedTo.ItemRoster.AddToCounts(
-                        hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Leg), 1);
-                    hero1.PartyBelongedTo.ItemRoster.AddToCounts(
-                        hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Weapon0), 1);
-                    hero1.PartyBelongedTo.ItemRoster.AddToCounts(
-                        hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Body), 1);
-                }
-                catch
-                {
-                }
+        protected void TakePrisonerEquipmentAndRelease()
+        {
+            Hero hero1 = Hero.MainHero;
+            Hero hero2 = Hero.OneToOneConversationHero;
 
-                Equipment equipment = hero2.BattleEquipment;
-                equipment.FillFrom(new Equipment());
-                ChangeRelationAction.ApplyPlayerRelation(hero2, -50, false, true);
-                EndCaptivityAction.ApplyByEscape(hero2);
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Cape), 1);
+            }
+            catch { }
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Gloves), 1);
+            }
+            catch { }
+
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+            hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Head), 1);
 
             }
+            catch { }
 
-            protected void ReleasePrisoner()
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+            hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Leg), 1);
+            }
+            catch { }
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                    hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Body), 1);
+            }
+            catch { }
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                    hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Weapon0), 1);
+            }
+            catch { }
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                    hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Weapon1), 1);
+            }
+            catch { }
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                    hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Weapon2), 1);
+            }
+            catch { }
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                    hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Weapon3), 1);
+            }
+            catch { }
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                    hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Weapon4), 1);
+            }
+            catch { }
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                    hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.Horse), 1);
+            }
+            catch { }
+            try
+            {
+                hero1.PartyBelongedTo.ItemRoster.AddToCounts(
+                    hero2.BattleEquipment.GetEquipmentFromSlot(EquipmentIndex.HorseHarness), 1);
+            }
+            catch { }
+
+
+
+
+            Equipment equipment = hero2.BattleEquipment;
+            equipment.FillFrom(new Equipment());
+            ChangeRelationAction.ApplyPlayerRelation(hero2, -50, false, true);
+            EndCaptivityAction.ApplyByEscape(hero2);
+
+        }
+
+        protected void ReleasePrisoner()
             {
                 Hero hero1 = Hero.MainHero;
                 Hero hero2 = Hero.OneToOneConversationHero;
