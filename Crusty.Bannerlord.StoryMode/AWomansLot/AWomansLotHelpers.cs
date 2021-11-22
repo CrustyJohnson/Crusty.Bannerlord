@@ -6,9 +6,9 @@ using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
 
 
-namespace Crusty.Bannerlord
+namespace Crusty.Bannerlord.StoryMode
 {
-    public static class CrustyHelpers
+    public static class AWomansLotHelpers
     {
         public static void SwitchEquipment(CharacterObject characterObject, string itemId,
             EquipmentIndex equipmentIndex)

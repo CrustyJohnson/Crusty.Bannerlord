@@ -7,7 +7,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Engine;
 using TaleWorlds.ObjectSystem;
 
-namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
+namespace Crusty.Bannerlord.YouAreAllowedToTalkToMe
 {
     public class CrustyHeroPrisonerBehavior : CampaignBehaviorBase
     {
@@ -15,8 +15,8 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
 
 
         public override void RegisterEvents() =>
-            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener((object)this,
-                new Action<CampaignGameStarter>(this.OnSessionLaunched));
+            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this,
+                new Action<CampaignGameStarter>(OnSessionLaunched));
 
         public override void SyncData(IDataStore dataStore)
         {
@@ -25,7 +25,7 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
 
         private void OnSessionLaunched(CampaignGameStarter campaignGameStarter)
         {
-            this.AddDialogs(campaignGameStarter);
+            AddDialogs(campaignGameStarter);
             InformationManager.DisplayMessage(new InformationMessage("Crusty.HeroPrisonerBehavior Added!"));
         }
 
@@ -47,17 +47,17 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
                 null);
             starter.AddPlayerLine("player_nevermind",
                 "prisoner_f2f_startOut", "close_window",
-                "Never mind...", new ConversationSentence.OnConditionDelegate(this.prisoner_f2f_true), null);
+                "Never mind...", new ConversationSentence.OnConditionDelegate(prisoner_f2f_true), null);
             starter.AddDialogLine("prisoner_acknowledges",
                 "player_calm_down", "player_decides",
                 "Alright...alright...what is it?[if:convo_grave]",
-                new ConversationSentence.OnConditionDelegate(this.prisoner_f2f_true), null);
+                new ConversationSentence.OnConditionDelegate(prisoner_f2f_true), null);
 
             //Player decides what to do with the prisoner
             starter.AddPlayerLine("player_decides_leave_prisoner",
                 "player_decides", "close_window",
                 "Actually, I'll come back later...",
-                new ConversationSentence.OnConditionDelegate(this.prisoner_f2f_true), null);
+                new ConversationSentence.OnConditionDelegate(prisoner_f2f_true), null);
             starter.AddPlayerLine("player_decides_rob_prisoner",
                 "player_decides", "prisoner_gets_robbed",
                 "Relieve yourself of your personal effects and remove yourself my sight, cur!",
@@ -77,7 +77,7 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
                 "player_decides", "persuasion_leave_faction_npc",
                 "WHy do you serve a liege that allows his subjects to rot away in prison?.",
                 null, null);
-            
+
 
 
             //Decisions ending the dialogue
@@ -98,7 +98,7 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
             starter.AddDialogLine("prisoner_fought",
                 "prisoner_fight", "close_window",
                 "What!? [if:convo_surprised]", prisoner_f2f_true, FightPrisonerConsequence);
-            
+
 
         }
 
@@ -110,80 +110,80 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
         }
 
         //CONDITIONS
-            private bool OnConditionIsMercenaryPrisoner()
+        private bool OnConditionIsMercenaryPrisoner()
+        {
+            try
             {
-                try
-                {
-                    Hero mercenary = Hero.OneToOneConversationHero;
-                    if (mercenary.PartyBelongedTo == Hero.MainHero.PartyBelongedTo && mercenary.IsPrisoner &&
-                        IsMercenaryPrisoner == true)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-
-            private bool playerDecidesRecruitMercenaryPrisonerCondition()
-            {
-                Hero hero = Hero.OneToOneConversationHero;
-                Clan clan = hero.Clan;
-
-                if (clan.IsMafia || clan.IsNeutralClan || clan.IsBanditFaction || clan.IsNomad)
-                {
-                    return true;
-
-                }
-
-                if (clan.IsClanTypeMercenary && !clan.IsUnderMercenaryService)
+                Hero mercenary = Hero.OneToOneConversationHero;
+                if (mercenary.PartyBelongedTo == Hero.MainHero.PartyBelongedTo && mercenary.IsPrisoner &&
+                    IsMercenaryPrisoner == true)
                 {
                     return true;
                 }
-                else
-                {
-                    return false;
 
-                }
+                return false;
             }
-
-            private bool prisoner_gets_robbed_on_condition()
+            catch
             {
-                try
-                {
-                    if (Hero.OneToOneConversationHero.PartyBelongedToAsPrisoner.Owner == Hero.MainHero)
-                    {
-                        return true;
-                    }
-                    else return false;
-                }
-                catch
-                {
-                    return true;
-                }
+                return false;
+            }
+        }
+
+        private bool playerDecidesRecruitMercenaryPrisonerCondition()
+        {
+            Hero hero = Hero.OneToOneConversationHero;
+            Clan clan = hero.Clan;
+
+            if (clan.IsMafia || clan.IsNeutralClan || clan.IsBanditFaction || clan.IsNomad)
+            {
+                return true;
+
             }
 
-
-            private bool prisoner_f2f_true()
+            if (clan.IsClanTypeMercenary && !clan.IsUnderMercenaryService)
             {
                 return true;
             }
-
-            // CONSEQUENCES
-            protected void RecruitPrisonerConsequence()
+            else
             {
-                Hero hero2 = Hero.OneToOneConversationHero;
-                MobileParty party = MobileParty.MainParty;
-                TroopRoster prisonRoster = party.PrisonRoster;
-                TaleWorlds.CampaignSystem.Actions.AddHeroToPartyAction.Apply(hero2, party);
-                party.PrisonRoster.RemoveTroop(hero2.CharacterObject);
-                IsMercenaryPrisoner = true;
+                return false;
 
             }
+        }
+
+        private bool prisoner_gets_robbed_on_condition()
+        {
+            try
+            {
+                if (Hero.OneToOneConversationHero.PartyBelongedToAsPrisoner.Owner == Hero.MainHero)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
+
+        private bool prisoner_f2f_true()
+        {
+            return true;
+        }
+
+        // CONSEQUENCES
+        protected void RecruitPrisonerConsequence()
+        {
+            Hero hero2 = Hero.OneToOneConversationHero;
+            MobileParty party = MobileParty.MainParty;
+            TroopRoster prisonRoster = party.PrisonRoster;
+            AddHeroToPartyAction.Apply(hero2, party);
+            party.PrisonRoster.RemoveTroop(hero2.CharacterObject);
+            IsMercenaryPrisoner = true;
+
+        }
 
         protected void TakePrisonerEquipmentAndRelease()
         {
@@ -277,18 +277,18 @@ namespace Crusty.Bannerlord.CrustyStoryMode.Behaviors
         }
 
         protected void ReleasePrisoner()
-            {
-                Hero hero1 = Hero.MainHero;
-                Hero hero2 = Hero.OneToOneConversationHero;
-                ChangeRelationAction.ApplyPlayerRelation(hero2, +1, false, true);
-                EndCaptivityAction.ApplyByReleasing(hero2);
-            }
-
-            private bool conversation_prisoner_f2f_on_condition() => Hero.OneToOneConversationHero != null &&
-                                                                     Hero.OneToOneConversationHero.HeroState ==
-                                                                     Hero.CharacterStates.Prisoner &&
-                                                                     Campaign.Current.CurrentConversationContext !=
-                                                                     ConversationContext.CapturedLord;
-
+        {
+            Hero hero1 = Hero.MainHero;
+            Hero hero2 = Hero.OneToOneConversationHero;
+            ChangeRelationAction.ApplyPlayerRelation(hero2, +1, false, true);
+            EndCaptivityAction.ApplyByReleasing(hero2);
         }
+
+        private bool conversation_prisoner_f2f_on_condition() => Hero.OneToOneConversationHero != null &&
+                                                                 Hero.OneToOneConversationHero.HeroState ==
+                                                                 Hero.CharacterStates.Prisoner &&
+                                                                 Campaign.Current.CurrentConversationContext !=
+                                                                 ConversationContext.CapturedLord;
+
     }
+}

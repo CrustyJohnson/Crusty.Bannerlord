@@ -1,5 +1,4 @@
-﻿using Crusty.Bannerlord.CrustyStoryMode;
-using SandBox;
+﻿using SandBox;
 using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterCreationContent;
@@ -8,18 +7,19 @@ using TaleWorlds.Engine;
 using TaleWorlds.ModuleManager;
 using TaleWorlds.MountAndBlade;
 using StoryMode;
+using Crusty.Bannerlord.StoryMode.AWomansLot.AWomansLotCharacterCreation;
 
-namespace Crusty.Bannerlord.CrustyStoryMode
+namespace Crusty.Bannerlord.StoryMode.AWomansLot
 {
-    public class CrustyStoryModeGameManager : StoryModeGameManager
+    public class AWomansLotGameManager : StoryModeGameManager
     {
         private int _seed = 1234;
 
-        public CrustyStoryModeGameManager() => this._seed = (int)DateTime.Now.Ticks & (int)ushort.MaxValue;
+        public AWomansLotGameManager() => _seed = (int)DateTime.Now.Ticks & ushort.MaxValue;
 
-        public CrustyStoryModeGameManager(int seed) : base(seed)
+        public AWomansLotGameManager(int seed) : base(seed)
         {
-            this._seed = seed;
+            _seed = seed;
         }
 
 
@@ -31,12 +31,12 @@ namespace Crusty.Bannerlord.CrustyStoryMode
             string audioPath = moduleFullPath + "Videos/campaign_intro.ogg";
             string subtitleFileBasePath = moduleFullPath + "Videos/campaign_intro";
             state.SetStartingParameters(videoPath, audioPath, subtitleFileBasePath, 60f, true);
-            state.SetOnVideoFinisedDelegate(new Action(this.LaunchStoryModeCharacterCreation));
-            Game.Current.GameStateManager.CleanAndPushState((GameState)state);
-            this.IsLoaded = true;
+            state.SetOnVideoFinisedDelegate(new Action(LaunchStoryModeCharacterCreation));
+            Game.Current.GameStateManager.CleanAndPushState(state);
+            IsLoaded = true;
         }
 
-        private void LaunchStoryModeCharacterCreation() => Game.Current.GameStateManager.CleanAndPushState((GameState)Game.Current.GameStateManager.CreateState<CharacterCreationState>((object)new CrustyStoryModeCharacterCreationContent()));
+        private void LaunchStoryModeCharacterCreation() => Game.Current.GameStateManager.CleanAndPushState(Game.Current.GameStateManager.CreateState<CharacterCreationState>((object)new AWomansLotCharacterCreationContent()));
     }
 }
 

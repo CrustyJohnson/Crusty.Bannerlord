@@ -1,5 +1,4 @@
-﻿using Crusty.Bannerlord.CrustyStoryMode.Behaviors;
-using TaleWorlds.CampaignSystem;
+﻿using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
