@@ -15,12 +15,8 @@ namespace Crusty.Bannerlord.StoryMode
             base.OnSubModuleLoad();
             TextObject coreContentDisabledReason = new TextObject("{=V8BXjyYq}Disabled during installation.");
 
-            Module.CurrentModule.AddInitialStateOption(new InitialStateOption("CrustyStoryMode", new TextObject("Crusty's Story Mode", null), 
-                9990, (Action)(() => MBGameManager.StartNewGame(new AWomansLotGameManager())), (Func<(bool, TextObject)>)(() 
-                => (Module.CurrentModule.IsOnlyCoreContentEnabled, coreContentDisabledReason))));
-
             Module.CurrentModule.AddInitialStateOption(new InitialStateOption("CrustyStoryMode", new TextObject("A Woman's Lot", null), 
-                9990, (Action)(() => MBGameManager.StartNewGame(new AWomansLotGameManager())), (Func<(bool, TextObject)>)(() 
+                1337, (Action)(() => MBGameManager.StartNewGame(new AWomansLotGameManager())), (Func<(bool, TextObject)>)(() 
                 => (Module.CurrentModule.IsOnlyCoreContentEnabled, coreContentDisabledReason))));
 
         }
