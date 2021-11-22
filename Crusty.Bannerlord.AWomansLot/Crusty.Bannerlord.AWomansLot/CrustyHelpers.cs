@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
 
 
-namespace Crusty.Bannerlord
+namespace Crusty.Bannerlord.AWomansLot
+
 {
-    public static class CrustyHelpers
+    public class CrustyHelpers
     {
         public static void SwitchEquipment(CharacterObject characterObject, string itemId,
             EquipmentIndex equipmentIndex)

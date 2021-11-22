@@ -6,7 +6,7 @@ using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
 
 
-namespace Crusty.Bannerlord
+namespace Crusty.Bannerlord.YouAreAllowedToTalkToMe
 {
     public static class CrustyHelpers
     {

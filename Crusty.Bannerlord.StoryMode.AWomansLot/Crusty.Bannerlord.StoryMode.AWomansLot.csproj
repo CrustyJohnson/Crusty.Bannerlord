@@ -34,6 +34,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="AWomansLot\Behaviors\QuestTemplate\**" />
+	  <EmbeddedResource Remove="AWomansLot\Behaviors\QuestTemplate\**" />
+	  <None Remove="AWomansLot\Behaviors\QuestTemplate\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="_Module\ModuleData\project.mbproj" />
 	</ItemGroup>
 
@@ -54,5 +60,9 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>compile</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="AWomansLot\Behaviors\" />
 	</ItemGroup>
 </Project>

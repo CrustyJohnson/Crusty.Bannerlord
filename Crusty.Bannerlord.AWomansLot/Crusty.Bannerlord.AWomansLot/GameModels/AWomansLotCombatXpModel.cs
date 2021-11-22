@@ -5,9 +5,9 @@ using TaleWorlds.CampaignSystem.SandBox.GameComponents.Map;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Crusty.Bannerlord.CrustyStoryMode.GameModels
+namespace Crusty.Bannerlord.AWomansLot.GameModels
 {
-    class CrustyCombatXpModel : DefaultCombatXpModel
+    class AWomansLotCombatXpModel : DefaultCombatXpModel
     {
         public class DefaultCombatXpModel : CombatXpModel
         {
@@ -26,27 +26,27 @@ namespace Crusty.Bannerlord.CrustyStoryMode.GameModels
               PartyBase party,
               int damage,
               bool isFatal,
-              CombatXpModel.MissionTypeEnum missionType,
+              MissionTypeEnum missionType,
               out int xpAmount)
             {
                 int val2 = attackedTroop.MaxHitPoints();
-                double num1 = 0.400000005960464 * (((party?.MapEvent == null ? (double)Campaign.Current.Models.MilitaryPowerModel.GetTroopPowerBasedOnContext(attackerTroop) : (double)Campaign.Current.Models.MilitaryPowerModel.GetTroopPowerBasedOnContext(attackerTroop, party.MapEvent.EventType, party.Side, missionType == CombatXpModel.MissionTypeEnum.SimulationBattle)) + 0.5) * (double)(Math.Min(damage, val2) + (isFatal ? val2 : 0)));
+                double num1 = 0.400000005960464 * (((party?.MapEvent == null ? Campaign.Current.Models.MilitaryPowerModel.GetTroopPowerBasedOnContext(attackerTroop) : Campaign.Current.Models.MilitaryPowerModel.GetTroopPowerBasedOnContext(attackerTroop, party.MapEvent.EventType, party.Side, missionType == MissionTypeEnum.SimulationBattle)) + 0.5) * (Math.Min(damage, val2) + (isFatal ? val2 : 0)));
                 double num2;
                 switch (missionType)
                 {
-                    case CombatXpModel.MissionTypeEnum.Battle:
+                    case MissionTypeEnum.Battle:
                         num2 = 2.0;
                         break;
-                    case CombatXpModel.MissionTypeEnum.PracticeFight:
+                    case MissionTypeEnum.PracticeFight:
                         num2 = 2.0;
                         break;
-                    case CombatXpModel.MissionTypeEnum.Tournament:
+                    case MissionTypeEnum.Tournament:
                         num2 = 2.0;
                         break;
-                    case CombatXpModel.MissionTypeEnum.SimulationBattle:
+                    case MissionTypeEnum.SimulationBattle:
                         num2 = 2.0;
                         break;
-                    case CombatXpModel.MissionTypeEnum.NoXp:
+                    case MissionTypeEnum.NoXp:
                         num2 = 2.0;
                         break;
                     default:
@@ -55,7 +55,7 @@ namespace Crusty.Bannerlord.CrustyStoryMode.GameModels
                 }
                 ExplainedNumber xpToGain = new ExplainedNumber((float)(num1 * num2));
                 if (party != null)
-                    this.GetBattleXpBonusFromPerks(party, ref xpToGain, attackerTroop);
+                    GetBattleXpBonusFromPerks(party, ref xpToGain, attackerTroop);
                 if (captain != null && captain.IsHero && captain.GetPerkValue(DefaultPerks.Leadership.InspiringLeader))
                     xpToGain.AddFactor(DefaultPerks.Leadership.InspiringLeader.SecondaryBonus, DefaultPerks.Leadership.InspiringLeader.Name);
                 xpAmount = MathF.Round(xpToGain.ResultNumber);
@@ -63,9 +63,9 @@ namespace Crusty.Bannerlord.CrustyStoryMode.GameModels
 
             public override float GetXpMultiplierFromShotDifficulty(float shotDifficulty)
             {
-                if ((double)shotDifficulty > 14.3999996185303)
+                if (shotDifficulty > 14.3999996185303)
                     shotDifficulty = 14.4f;
-                return MBMath.Lerp(0.0f, 2f, (float)(((double)shotDifficulty - 1.0) / 13.3999996185303));
+                return MBMath.Lerp(0.0f, 2f, (float)((shotDifficulty - 1.0) / 13.3999996185303));
             }
 
             public override float CaptainRadius => 10f;

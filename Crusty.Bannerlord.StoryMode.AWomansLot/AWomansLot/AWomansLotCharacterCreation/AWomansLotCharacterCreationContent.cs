@@ -8,44 +8,58 @@ using TaleWorlds.ObjectSystem;
 using StoryMode.CharacterCreationContent;
 
 
-namespace Crusty.Bannerlord.CrustyStoryMode
+namespace Crusty.Bannerlord.StoryMode.AWomansLot.AWomansLotCharacterCreation
 {
-    public class CrustyStoryModeCharacterCreationContent : StoryModeCharacterCreationContent
+    public class AWomansLotCharacterCreationContent : StoryModeCharacterCreationContent
 
     {
+        protected ItemObject? Heirloom { get; set; }
         protected override void OnInitialized(CharacterCreation characterCreation)
         {
-            base.AddParentsMenu(characterCreation);
-            base.AddChildhoodMenu(characterCreation);
-            base.AddEducationMenu(characterCreation);
-            base.AddYouthMenu(characterCreation);
-            base.AddAdulthoodMenu(characterCreation);
-            base.AddEscapeMenu(characterCreation);
-            AddHeirloomMenu(characterCreation);
-            AddHeirloomMenu2(characterCreation);
+            if (!Hero.MainHero.IsFemale)
+            {
+                AddParentsMenu(characterCreation);
+                AddChildhoodMenu(characterCreation);
+                AddEducationMenu(characterCreation);
+                AddYouthMenu(characterCreation);
+                AddAdulthoodMenu(characterCreation);
+                AddHeirloomMenuFather(characterCreation);
+                AddHeirloomMenuMother(characterCreation);
+            }
+            else
+            {
+                AddParentsMenu(characterCreation);
+                AddChildhoodMenu(characterCreation);
+                AddEducationMenu(characterCreation);
+                AddYouthMenu(characterCreation);
+                AddAdulthoodMenu(characterCreation);
+                AddEscapeMenu(characterCreation); 
+                AddHeirloomMenuFather(characterCreation);
+                AddHeirloomMenuMother(characterCreation);
+            }
 
         }
 
 
-        private void AddHeirloomMenu(CharacterCreation characterCreation)
+        private void AddHeirloomMenuFather(CharacterCreation characterCreation)
         {
             // Menu Root
             MBTextManager.SetTextVariable("EXP_VALUE", base.SkillLevelToAdd);
-            CharacterCreationMenu menu = new CharacterCreationMenu(new TextObject("Heirloom"), new TextObject("The last day you saw your father, he bestowed upon you..."), new CharacterCreationOnInit(this.HeirloomOnInit));
+            CharacterCreationMenu menu = new CharacterCreationMenu(new TextObject("Heirloom"), new TextObject("The last day you saw your father, he bestowed upon you..."), new CharacterCreationOnInit(HeirloomOnInit));
             // Sword
             CharacterCreationCategory creationCategory = menu.AddMenuCategory();
             creationCategory.AddCategoryOption(new TextObject("A handsome sword."), new List<SkillObject>(), null, 12,
-                0, 6, null, new CharacterCreationOnSelect(this.SwordHeirloomOnSelect),
+                0, 6, null, new CharacterCreationOnSelect(SwordHeirloomOnSelect),
                 new CharacterCreationApplyFinalEffects(SwordHeirloomOnApply),
                 new TextObject("It rests comfortably in your hands"));
             // Polearm
             creationCategory.AddCategoryOption(new TextObject("A menacing polearm."), new List<SkillObject>(), null, 12,
-                0, 6, null, new CharacterCreationOnSelect(this.PolearmHeirloomOnSelect),
+                0, 6, null, new CharacterCreationOnSelect(PolearmHeirloomOnSelect),
                 new CharacterCreationApplyFinalEffects(PolearmHeirloomOnApply),
                 new TextObject("It rests comfortably in your hands"));
             // Axe
             creationCategory.AddCategoryOption(new TextObject("A handsome axe."), new List<SkillObject>(), null, 12,
-                0, 6, null, new CharacterCreationOnSelect(this.AxeHeirloomOnSelect),
+                0, 6, null, new CharacterCreationOnSelect(AxeHeirloomOnSelect),
                 new CharacterCreationApplyFinalEffects(AxeHeirloomOnApply),
                 new TextObject("It rests comfortably in your hands"));
 
@@ -132,19 +146,21 @@ namespace Crusty.Bannerlord.CrustyStoryMode
         }
 
 
-        private void AddHeirloomMenu2(CharacterCreation characterCreation)
+        private void AddHeirloomMenuMother(CharacterCreation characterCreation)
         {
             // Menu Root
             MBTextManager.SetTextVariable("EXP_VALUE", base.SkillLevelToAdd);
-            CharacterCreationMenu menu = new CharacterCreationMenu(new TextObject("Heirloom2"), new TextObject("The day you left home, your mother bestowed onto you..."), new CharacterCreationOnInit(this.HeirloomOnInit));
+            CharacterCreationMenu menu = new CharacterCreationMenu(new TextObject("Heirloom2"), new TextObject("The day you left home, your mother bestowed onto you..."), new CharacterCreationOnInit(HeirloomOnInit));
             // Option 1
             CharacterCreationCategory creationCategory = menu.AddMenuCategory();
-            creationCategory.AddCategoryOption(new TextObject("A trusty crossbow."), new List<SkillObject>(), null, 12, 0, 6, null, new CharacterCreationOnSelect(this.CrossbowHeirloomOnSelect), new CharacterCreationApplyFinalEffects(CrossbowHeirloomOnApply), new TextObject("It bears the scars of many a hunt"));
+            creationCategory.AddCategoryOption(new TextObject("A trusty crossbow."), new List<SkillObject>(), null, 12, 0, 6, null, new CharacterCreationOnSelect(CrossbowHeirloomOnSelect), new CharacterCreationApplyFinalEffects(CrossbowHeirloomOnApply), new TextObject("It bears the scars of many a hunt"));
 
             //Option 2
-            creationCategory.AddCategoryOption(new TextObject("A lithe bow."), new List<SkillObject>(), null, 12, 0, 6, null, new CharacterCreationOnSelect(this.BowHeirloomOnSelect), new CharacterCreationApplyFinalEffects(BowHeirloomOnApply), new TextObject("The sound it creates, as you fiddle with the bowstring, is beautiful."));
+            creationCategory.AddCategoryOption(new TextObject("A lithe bow."), new List<SkillObject>(), null, 12, 0, 6, null, new CharacterCreationOnSelect(BowHeirloomOnSelect), new CharacterCreationApplyFinalEffects(BowHeirloomOnApply), new TextObject("The sound it creates, as you fiddle with the bowstring, is beautiful."));
+
 
             // Option 3
+            creationCategory.AddCategoryOption(new TextObject("Her sturdy armor."), new List<SkillObject>(), null, 12, 0, 6, null, new CharacterCreationOnSelect(ArmorOnSelect), new CharacterCreationApplyFinalEffects(ArmorOnApply), new TextObject("It fits perfedctly."));
 
             //Add the menu
             characterCreation.AddNewMenu(menu);
@@ -254,6 +270,29 @@ namespace Crusty.Bannerlord.CrustyStoryMode
 
         }
 
+        private void ArmorOnApply(CharacterCreation characterCreation)
+        {
+            ItemObject itemObject1 = MBObjectManager.Instance.GetObject<ItemObject>("crossbow_b");
+            CharacterObject.PlayerCharacter.Equipment.AddEquipmentToSlotWithoutAgent(EquipmentIndex.Weapon2, new EquipmentElement(itemObject1));
+        }
+
+        private void ArmorOnSelect(CharacterCreation characterCreation)
+        {
+            characterCreation.ClearFaceGenMounts();
+            characterCreation.ClearFaceGenPrefab();
+            characterCreation.ClearCharactersEquipment();
+            List<Equipment> equipmentList = new List<Equipment>();
+            Equipment equipment = CharacterObject.PlayerCharacter.Equipment.Clone(true);
+            equipmentList.Add(equipment);
+            Heirloom = Hero.MainHero.Mother.BattleEquipment[EquipmentIndex.Body].Item;
+            characterCreation.ChangeCharactersEquipment(equipmentList);
+            characterCreation.ChangeCharsAnimation(new List<string>()
+            {
+                "act_childhood_vibrant"
+            });
+
+        }
+
 
         private void BowHeirloomOnApply(CharacterCreation characterCreation)
         {
@@ -349,7 +388,7 @@ namespace Crusty.Bannerlord.CrustyStoryMode
             });
         }
 
-        
+
 
 
         private void HeirloomOnInit(CharacterCreation characterCreation)
