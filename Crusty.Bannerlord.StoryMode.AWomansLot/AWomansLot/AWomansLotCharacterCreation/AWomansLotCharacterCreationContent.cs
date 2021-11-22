@@ -10,20 +10,33 @@ using StoryMode.CharacterCreationContent;
 
 namespace Crusty.Bannerlord.StoryMode.AWomansLot.AWomansLotCharacterCreation
 {
-    public class CrustyStoryModeCharacterCreationContent : StoryModeCharacterCreationContent
+    public class AWomansLotCharacterCreationContent : StoryModeCharacterCreationContent
 
     {
         protected ItemObject? Heirloom { get; set; }
         protected override void OnInitialized(CharacterCreation characterCreation)
         {
-            AddParentsMenu(characterCreation);
-            AddChildhoodMenu(characterCreation);
-            AddEducationMenu(characterCreation);
-            AddYouthMenu(characterCreation);
-            AddAdulthoodMenu(characterCreation);
-            AddEscapeMenu(characterCreation);
-            AddHeirloomMenuFather(characterCreation);
-            AddHeirloomMenuMother(characterCreation);
+            if (!Hero.MainHero.IsFemale)
+            {
+                AddParentsMenu(characterCreation);
+                AddChildhoodMenu(characterCreation);
+                AddEducationMenu(characterCreation);
+                AddYouthMenu(characterCreation);
+                AddAdulthoodMenu(characterCreation);
+                AddHeirloomMenuFather(characterCreation);
+                AddHeirloomMenuMother(characterCreation);
+            }
+            else
+            {
+                AddParentsMenu(characterCreation);
+                AddChildhoodMenu(characterCreation);
+                AddEducationMenu(characterCreation);
+                AddYouthMenu(characterCreation);
+                AddAdulthoodMenu(characterCreation);
+                AddEscapeMenu(characterCreation); 
+                AddHeirloomMenuFather(characterCreation);
+                AddHeirloomMenuMother(characterCreation);
+            }
 
         }
 
@@ -147,7 +160,7 @@ namespace Crusty.Bannerlord.StoryMode.AWomansLot.AWomansLotCharacterCreation
 
 
             // Option 3
-            creationCategory.AddCategoryOption(new TextObject("Her sturdy armor."), new List<SkillObject>(), null, 12, 0, 6, null, new CharacterCreationOnSelect(BowHeirloomOnSelect), new CharacterCreationApplyFinalEffects(ArmorOnApply), new TextObject("It fits perfedctly."));
+            creationCategory.AddCategoryOption(new TextObject("Her sturdy armor."), new List<SkillObject>(), null, 12, 0, 6, null, new CharacterCreationOnSelect(ArmorOnSelect), new CharacterCreationApplyFinalEffects(ArmorOnApply), new TextObject("It fits perfedctly."));
 
             //Add the menu
             characterCreation.AddNewMenu(menu);
